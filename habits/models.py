@@ -31,3 +31,6 @@ class Habit(models.Model):
     class Meta:
         verbose_name = 'полезная привычка'
         verbose_name_plural = 'полезные привычки'
+
+    def __str__(self):
+        return f'{self.place} {self.action} {"- приятная привычка" if self.pleasant_habit else ""}'

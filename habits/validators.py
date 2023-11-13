@@ -21,3 +21,25 @@ class RelatedHabitsValidator:
 
         if pleasant_habit and award:
             raise ValidationError('У приятной привычки не может быть вознагражденния')
+
+
+class NotNullValidator:
+    def __init__(self, related_habit, award, pleasant_habit):
+        self.related_habit = related_habit
+        self.award = award
+        self.pleasant_habit = pleasant_habit
+
+    def __call__(self, value: dict):
+
+        if not self.pleasant_habit:
+            if not self.related_habit and not self.award:
+                raise ValidationError('укажите вознаграждение либо связанную приятную привычку')
+
+
+class MaxTimeToCompleteValidator:
+    def __init__(self, time_to_complete):
+        self.time_to_complete = time_to_complete
+
+    def __call__(self, value: dict):
+        if self.time_to_complete > 120:
+            raise ValidationError('время выполнения привычки не должно превышать 120 секунд')
