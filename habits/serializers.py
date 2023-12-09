@@ -6,7 +6,7 @@ from users.serializers import UserPublishedSerializer
 
 
 class HabitSerializer(serializers.ModelSerializer):
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Habit

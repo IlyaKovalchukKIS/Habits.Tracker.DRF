@@ -5,6 +5,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class User(AbstractUser):
+    chat_id_tg = models.IntegerField(unique=True, verbose_name='id чата Telegram', **NULLABLE)
     username = None
     email = models.EmailField(unique=True, verbose_name='почта')
 

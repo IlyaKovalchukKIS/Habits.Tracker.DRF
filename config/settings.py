@@ -24,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,7 +47,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
 
     'users',
-    'habits'
+    'habits',
+    'tg_bot',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +140,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ]
 }

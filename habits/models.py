@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django_celery_beat.models import PeriodicTask
 
@@ -16,17 +18,19 @@ PERIOD = [
 
 
 class Habit(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    place = models.CharField(max_length=150, verbose_name='место')
-    time = models.TimeField(verbose_name='время')
-    action = models.CharField(max_length=300, verbose_name='действие')
-    pleasant_habit = models.BooleanField(verbose_name='признак приятной привычки')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', **NULLABLE)
+    place = models.CharField(max_length=150, verbose_name='место', **NULLABLE)
+    time = models.TimeField(verbose_name='время', **NULLABLE)
+    action = models.CharField(max_length=300, verbose_name='действие', **NULLABLE)
+    pleasant_habit = models.BooleanField(verbose_name='признак приятной привычки', default=False)
     related_habit = models.ForeignKey('self', on_delete=models.DO_NOTHING, verbose_name='связанная привычка',
                                       **NULLABLE)
-    frequency = models.CharField(choices=PERIOD, verbose_name='периодичность')
+    frequency = models.CharField(choices=PERIOD, verbose_name='периодичность', **NULLABLE)
     award = models.CharField(max_length=350, verbose_name='вознаграждение', **NULLABLE)
-    time_to_complete = models.PositiveIntegerField(verbose_name='время на выполнение')
-    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
+    time_to_complete = models.IntegerField(verbose_name='время на выполнение', default=120)
+    is_published = models.BooleanField(default=False, verbose_name='признак публикации', **NULLABLE)
+
+    last_send = models.DateField(verbose_name='время создания привычки', **NULLABLE)
 
     class Meta:
         verbose_name = 'полезная привычка'

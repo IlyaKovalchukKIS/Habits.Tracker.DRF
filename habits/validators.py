@@ -41,5 +41,6 @@ class MaxTimeToCompleteValidator:
         self.time_to_complete = time_to_complete
 
     def __call__(self, value: dict):
-        if self.time_to_complete > 120:
+        time_to_complete = dict(value).get(self.time_to_complete, 0)
+        if time_to_complete >= 120:
             raise ValidationError('время выполнения привычки не должно превышать 120 секунд')
