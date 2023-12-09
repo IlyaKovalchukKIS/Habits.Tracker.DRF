@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 import sys
 
 from aiogram import Bot, Dispatcher
@@ -9,7 +10,7 @@ from tg_test.handlers import router
 
 
 async def main_bot():
-    bot = Bot(token='6918038869:AAGDb0y59pIsyMz18ZYPBpP-fQ0uYBEA9xA', parse_mode=ParseMode.HTML)
+    bot = Bot(token=os.getenv('TG_BOT_TOKEN'), parse_mode=ParseMode.HTML)
     dp = Dispatcher()
     dp.include_router(router)
     await dp.start_polling(bot)
