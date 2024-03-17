@@ -1,8 +1,4 @@
-import datetime
-
 from django.db import models
-from django_celery_beat.models import PeriodicTask
-
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}

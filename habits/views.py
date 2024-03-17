@@ -1,14 +1,8 @@
-from pprint import pprint
-
-from django.shortcuts import render
 from rest_framework import generics, permissions
-from rest_framework.permissions import IsAuthenticated
-
 from habits.models import Habit
 from habits.paginators import HabitPaginator
 from habits.permissions import IsOwner
 from habits.serializers import HabitSerializer, HabitPublishedSerializer
-from users.models import User
 
 
 class HabitCreateApiView(generics.CreateAPIView):
@@ -25,7 +19,6 @@ class HabitListApiView(generics.ListAPIView):
     queryset = Habit.objects.all()
     pagination_class = HabitPaginator
     permission_classes = [permissions.IsAuthenticated, IsOwner]
-
 
     # def get_serializer_context(self):
     #     queryset = super().get_serializer_context()

@@ -1,15 +1,7 @@
-# @shared_task
-# def test_db_tg():
-#     print(get_habit(1, 6))
-#     print()
-#     print(get_user('mrlivedance@vk.com'))
-#     print()
-#     print(get_list_habits(1))
 import asyncio
 import datetime
 
 from aiogram import Router
-from aiogram.types import Message
 from celery import shared_task
 
 from habits.models import Habit

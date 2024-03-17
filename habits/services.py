@@ -1,14 +1,3 @@
-# from users.models import User
-#
-#
-# def registration_user(form):
-#     user = User.objects.get(email=form.email) \
-#         if User.objects.get(email=form.email) \
-#         else User.objects.create(chat_id_tg=form.chat_id, email=form.email)
-#     user.save()
-#     return user
-#
-
 from users.models import User
 from habits.models import Habit
 

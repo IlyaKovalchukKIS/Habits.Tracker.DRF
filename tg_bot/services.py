@@ -44,6 +44,7 @@ def habit_published_api(user_token):
     published = requests.get(url=url, headers=headers)
     return published.json()
 
+
 def get_pleasant_habit_list(user_data):
     url = 'http://127.0.0.1:8000/habits/list/'
     headers = {'Authorization': f'Bearer {user_data["token"]}'}

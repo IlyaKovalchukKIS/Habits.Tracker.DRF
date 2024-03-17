@@ -1,9 +1,4 @@
-from pprint import pprint
-from rest_framework import viewsets, generics
-
-from habits import permissions
-from habits.models import Habit
-from habits.permissions import IsOwner
+from rest_framework import viewsets
 from users.models import User
 from users.serializers import UserSerializer
 

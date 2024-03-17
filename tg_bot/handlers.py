@@ -46,7 +46,7 @@ async def registration_user(message: Message, state: FSMContext):
         print('if')
         # password = [str(random.randint(0, 9)) for _ in range(10)]
         # data_user['password'] = password
-        registration = requests.post(url=url + 'users/user/', data=data_user)
+        requests.post(url=url + 'users/user/', data=data_user)
         token_user = requests.post(url=url + "users/token/", data=data_user)
         data_user['token'] = token_user.json().get('access')
 
@@ -127,7 +127,7 @@ async def save_is_published(callback: CallbackQuery, state: FSMContext):
     await choice_habit(callback.message, state)
 
 
-async def choice_habit(message: Message, state: FSMContext):
+async def choice_habit(message: Message):
     await message.answer('Выберете одно из действий:\n'
                          '1 - сделать привычку приятной\n'
                          '2 - добавить вознаграждение за выполенную привычку\n'
@@ -211,7 +211,7 @@ async def award(message: Message, state: FSMContext):
 
 
 @router.message(Command('habits_list'))
-async def list_habit(message: Message, state: FSMContext):
+async def list_habit(message: Message):
     habits = get_pleasant_habit_list(user_data)
     for habit in habits:
         await message.answer(f'Ваша привычка:\n'
@@ -221,7 +221,7 @@ async def list_habit(message: Message, state: FSMContext):
 
 
 @router.callback_query(F.data.startswith("delete_habit_"))
-async def delete_habit(callback: CallbackQuery, state: FSMContext):
+async def delete_habit(callback: CallbackQuery):
     print('-' * 10)
     print('handler delete habit')
     habit_id = callback.data.split("_")[-1]
@@ -233,7 +233,7 @@ async def delete_habit(callback: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(F.data.startswith("update_habit_"))
-async def update_habit(callback: CallbackQuery, state: FSMContext):
+async def update_habit(callback: CallbackQuery):
     habit_id = callback.data.split("_")[-1]
     user_token = user_data['token']
     retrieve = habit_retrieve_api(habit_id=habit_id, user_token=user_token)
@@ -253,10 +253,10 @@ async def update_field(callback: CallbackQuery, state: FSMContext):
             data = message.text
             await state.update_data(field_update=data)
             data = await state.get_data()
-            update = habit_update_api(habit_id=habit_data[-1],
-                                      field=habit_data[-2],
-                                      data=data['field_update'],
-                                      user_token=user_data['token'])
+            habit_update_api(habit_id=habit_data[-1],
+                             field=habit_data[-2],
+                             data=data['field_update'],
+                             user_token=user_data['token'])
             await callback.message.answer('str(update)')
             await state.clear()
 
@@ -268,10 +268,10 @@ async def update_field(callback: CallbackQuery, state: FSMContext):
             data = callback.data.split('_')
             await state.update_data(field_update=data[-1])
             data = await state.get_data()
-            update = habit_update_api(habit_id=habit_data[-1],
-                                      field=habit_data[-2],
-                                      data=data['field_update'],
-                                      user_token=user_data['token'])
+            habit_update_api(habit_id=habit_data[-1],
+                             field=habit_data[-2],
+                             data=data['field_update'],
+                             user_token=user_data['token'])
             await callback.message.answer('str(update)')
             await state.clear()
 
@@ -283,16 +283,16 @@ async def update_field(callback: CallbackQuery, state: FSMContext):
             data = callback.data.split('_')
             await state.update_data(field_update=data[-1])
             data = await state.get_data()
-            update = habit_update_api(habit_id=habit_data[-1],
-                                      field=habit_data[-2],
-                                      data=data['field_update'],
-                                      user_token=user_data['token'])
+            habit_update_api(habit_id=habit_data[-1],
+                             field=habit_data[-2],
+                             data=data['field_update'],
+                             user_token=user_data['token'])
             await callback.message.answer('str(update)')
             await state.clear()
 
 
 @router.message(Command('habits_published'))
-async def list_habit(message: Message, state: FSMContext):
+async def list_habit(message: Message):
     habits = habit_published_api(user_data['token'])
     for habit in habits:
         if habit['is_published']:
