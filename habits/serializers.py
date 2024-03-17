@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from habits.models import Habit
-from habits.validators import RelatedHabitsValidator, NotNullValidator, MaxTimeToCompleteValidator
+from habits.validators import RelatedHabitsValidator, NotNullValidator, MaxTimeToCompleteValidator, PleasantHabitNotRelated
 from users.serializers import UserPublishedSerializer
 
 
@@ -14,6 +14,7 @@ class HabitSerializer(serializers.ModelSerializer):
         validators = [
             RelatedHabitsValidator(related_habit='related_habit', award='award', pleasant_habit='pleasant_habit'),
             NotNullValidator(related_habit='related_habit', award='award', pleasant_habit='pleasant_habit'),
+            PleasantHabitNotRelated(related_habit='related_habit', pleasant_habit='pleasant_habit'),
             MaxTimeToCompleteValidator(time_to_complete='time_to_complete')
         ]
 
