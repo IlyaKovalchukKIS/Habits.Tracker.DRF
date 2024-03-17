@@ -23,8 +23,9 @@ class HabitListApiView(generics.ListAPIView):
     """Просмотр списка приывчек"""
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    # permission_classes = [permissions.IsAuthenticated, IsOwner]
-    # pagination_class = HabitPaginator
+    pagination_class = HabitPaginator
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
 
     # def get_serializer_context(self):
     #     queryset = super().get_serializer_context()
@@ -41,6 +42,7 @@ class HabitDestroyAPIView(generics.DestroyAPIView):
     """Удаление приывчки"""
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
