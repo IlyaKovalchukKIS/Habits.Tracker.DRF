@@ -20,15 +20,9 @@ class HabitListApiView(generics.ListAPIView):
     pagination_class = HabitPaginator
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
-    # def get_serializer_context(self):
-    #     queryset = super().get_serializer_context()
-    #     print(self.queryset)
-    #     q = []
-    #     for i in queryset:
-    #         print(i)
-    #         if not i == self.request.user:
-    #             queryset.pop(i)
-    #     return queryset
+    def get_queryset(self):
+        queryset = Habit.objects.filter(user=self.request.user)
+        return queryset
 
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
