@@ -211,7 +211,7 @@ async def award(message: Message, state: FSMContext):
 
 
 @router.message(Command('habits_list'))
-async def list_habit(message: Message):
+async def list_habit_see(message: Message):
     habits = get_pleasant_habit_list(user_data)
     for habit in habits:
         await message.answer(f'Ваша привычка:\n'
@@ -292,7 +292,7 @@ async def update_field(callback: CallbackQuery, state: FSMContext):
 
 
 @router.message(Command('habits_published'))
-async def list_habit(message: Message):
+async def list_habit_print(message: Message):
     habits = habit_published_api(user_data['token'])
     for habit in habits:
         if habit['is_published']:

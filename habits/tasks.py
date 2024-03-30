@@ -24,6 +24,6 @@ def habit_time():
                 habits_send.append(habit)
 
     async def send_message():
-        await router.message(chat_id=habit.user.tg_chat_id, text=f'Начните выполнять привычку')
+        await router.message(chat_id=habit.user.tg_chat_id, text='Начните выполнять привычку')
 
     asyncio.run(send_message())
